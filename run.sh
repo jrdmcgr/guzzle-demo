@@ -34,9 +34,4 @@ docker run \
     --name="${NAME}-test" \
     --net="$NAME" \
     --volume="$PWD:/app" \
-    php:8-cli \
-    php /app/guzzle_parallel.php
-
-
-
-
+    composer:2.5 sh -c "composer install && php guzzle_parallel.php"
