@@ -1,7 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-PORT="8080"
 NAME="guzzle-demo"
 
 function cleanup {
@@ -13,20 +12,15 @@ function cleanup {
 trap cleanup EXIT
 
 docker network create "$NAME"
+
+echo "Starting server..."
 docker run \
     --rm \
     --detach \
     --name="$NAME" \
     --net "${NAME}" \
-    --publish="${PORT}:80" \
     --volume="${PWD}/server:/var/www/html" \
     php:8-apache
-
-# wait for it to start
-echo "Starting server..."
-while ! curl --silent http://localhost:"$PORT" > /dev/null
-do sleep 1
-done
 
 echo "Running benchmark..."
 docker run \
