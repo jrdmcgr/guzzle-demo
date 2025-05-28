@@ -18,7 +18,7 @@ docker run \
     --rm \
     --detach \
     --name="$NAME" \
-    --net "${NAME}" \
+    --net "$NAME" \
     --volume="${PWD}/server:/var/www/html" \
     php:8-apache
 
